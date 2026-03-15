@@ -1,0 +1,1092 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+    <!-- ...existing code... -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio BTS SIO option SISR - Spécialisation DevOps et Cybersécurité">
+    <title>Portfolio BTS SIO | Expert DevOps & Cyber</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           1. VARIABLES & RESET
+           ========================================= */
+        :root {
+            --bg-dark: #050505;
+            --bg-card: rgba(20, 20, 35, 0.6);
+            --primary: #7000ff;
+            --primary-glow: rgba(112, 0, 255, 0.5);
+            --secondary: #00d4ff;
+            --secondary-glow: rgba(0, 212, 255, 0.5);
+            --text-main: #ffffff;
+            --text-muted: #a0a0b0;
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --font-main: 'Poppins', sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary) var(--bg-dark);
+        }
+
+        /* Scrollbar customisée Webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Toile de fond animée (Canvas) */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at center, #1a1a2e 0%, #000000 100%);
+        }
+
+        /* =========================================
+           2. NAVIGATION (Sticky Glass)
+           ========================================= */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1200px;
+            background: rgba(10, 10, 20, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+
+        .navbar:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        .nav-logo {
+            font-family: var(--font-code);
+            font-weight: 700;
+            color: var(--secondary);
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+            padding: 5px 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: 0.3s;
+            box-shadow: 0 0 10px var(--secondary);
+        }
+
+        .nav-links a:hover {
+            color: white;
+            text-shadow: 0 0 8px var(--secondary-glow);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Menu Burger pour mobile */
+        .menu-toggle {
+            display: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* =========================================
+           3. HERO SECTION (Présentation)
+           ========================================= */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 5% 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            max-width: 1400px;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 900;
+        }
+
+        .hero-text .role {
+            font-family: var(--font-code);
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            display: block;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .bts-info {
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            position: relative;
+            transition: 0.5s;
+        }
+
+        .bts-info:hover {
+            border-color: var(--secondary);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .bts-info h2 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .bts-badge {
+            background: var(--primary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Effet de brillance derrière le texte */
+        .glow-bg {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            filter: blur(150px);
+            opacity: 0.2;
+            border-radius: 50%;
+            z-index: -1;
+            animation: pulseGlow 5s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 0.15; }
+            100% { transform: scale(1.2); opacity: 0.3; }
+        }
+
+        /* =========================================
+           4. GLOBAL SECTION STYLES
+           ========================================= */
+        .section-separator {
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, var(--bg-dark));
+        }
+
+        .main-section {
+            padding: 100px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: white;
+            display: inline-block;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-header h2::before {
+            content: attr(data-text);
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            color: rgba(255, 255, 255, 0.1);
+            z-index: -1;
+            filter: blur(2px);
+        }
+
+        .section-header .line {
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto 0;
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--secondary);
+        }
+
+        /* =========================================
+           5. VEILLES (Grid Layout Dense)
+           ========================================= */
+        .veilles-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+        }
+
+        .veille-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .veille-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+            transition: 0.4s;
+        }
+
+        .veille-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .veille-card:hover::before {
+            width: 100%;
+            opacity: 0.05;
+        }
+
+        .veille-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .veille-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--secondary);
+        }
+
+        .veille-content p {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        /* =========================================
+           6. STAGES (Timeline Design)
+           ========================================= */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: rgba(255,255,255,0.1);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+
+        .container-stage {
+            padding: 10px 50px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+        }
+
+        .container-stage::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -12px;
+            background-color: var(--bg-dark);
+            border: 4px solid var(--secondary);
+            top: 25px;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 10px var(--secondary);
+        }
+
+        .left { left: 0; text-align: right; }
+        .right { left: 50%; text-align: left; }
+        .right::after { left: -8px; }
+
+        .content-stage {
+            padding: 30px;
+            background: var(--bg-card);
+            border-radius: 15px;
+            border: 1px solid var(--glass-border);
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .content-stage:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+            transform: scale(1.02);
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: var(--secondary);
+            color: #000;
+            font-weight: 700;
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            font-family: var(--font-code);
+        }
+
+        /* =========================================
+           7. COMPÉTENCES (Tech Grid)
+           ========================================= */
+        .skills-wrapper {
+            background: rgba(255,255,255,0.02);
+            border-radius: 30px;
+            padding: 50px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .category-title {
+            color: var(--primary);
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .category-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .tech-item {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--glass-border);
+            padding: 20px 10px;
+            border-radius: 15px;
+            text-align: center;
+            transition: 0.3s;
+            cursor: default;
+        }
+
+        .tech-item:hover {
+            border-color: var(--primary);
+            background: rgba(112, 0, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .tech-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* =========================================
+           8. CERTIFICATIONS (Holographic Cards)
+           ========================================= */
+        .certs-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .cert-card {
+            width: 300px;
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(0,0,0,0.2));
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid var(--glass-border);
+            transition: 0.5s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cert-card:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .cert-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: holoSwipe 3s infinite;
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .cert-card:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes holoSwipe {
+            0% { transform: translateY(100%) rotate(45deg); }
+            100% { transform: translateY(-100%) rotate(45deg); }
+        }
+
+        /* =========================================
+           9. BOUTONS
+           ========================================= */
+        .btn-neon {
+            background: transparent;
+            color: var(--text-main);
+            border: 2px solid var(--primary);
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 50px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: 0.3s;
+            z-index: 1;
+            margin-top: 20px;
+            font-family: var(--font-code);
+        }
+
+        .btn-neon::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 0; height: 100%;
+            background: var(--primary);
+            z-index: -1;
+            transition: 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .btn-neon:hover {
+            color: white;
+            box-shadow: 0 0 20px var(--primary-glow);
+            border-color: var(--primary);
+        }
+
+        .btn-neon:hover::before {
+            width: 100%;
+        }
+
+        .btn-secondary {
+            border-color: var(--secondary);
+        }
+        .btn-secondary::before { background: var(--secondary); }
+        .btn-secondary:hover { box-shadow: 0 0 20px var(--secondary-glow); }
+
+        .hero-actions {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        /* =========================================
+           10. MODAL
+           ========================================= */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(15px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.4s ease;
+            z-index: 9999;
+        }
+
+        .modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content-wrapper {
+            position: relative;
+            width: 90%;
+            height: 90%;
+            background: #1a1a2e;
+            border-radius: 20px;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 50px rgba(112, 0, 255, 0.2);
+        }
+
+        .modal iframe {
+            width: 100%;
+            height: 100%;
+            border-radius: 18px;
+            border: none;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background: var(--secondary);
+            color: #000;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 0 15px var(--secondary-glow);
+            transition: 0.3s;
+            z-index: 10001;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        /* =========================================
+           11. FOOTER
+           ========================================= */
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            border-top: 1px solid var(--glass-border);
+            background: rgba(0,0,0,0.5);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* =========================================
+           12. RESPONSIVE
+           ========================================= */
+        @media(max-width: 992px) {
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-text p { text-align: center; }
+            .timeline::after { left: 31px; }
+            .container-stage { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .container-stage::after { left: 21px; }
+            .left, .right { text-align: left; }
+            .right { left: 0; }
+        }
+
+        @media(max-width: 768px) {
+            .navbar { width: 100%; top: 0; border-radius: 0; padding: 15px; }
+            .nav-links { display: none; } /* Pour simplifier, on cache sur mobile ou ajout JS burger */
+            .hero-text h1 { font-size: 2.5rem; }
+            .section-header h2 { font-size: 2rem; }
+        }
+    </style>
+</head>
+
+<body><script type="text/javascript" src="/___vscode_livepreview_injected_script"></script>
+
+<canvas id="bg-canvas"></canvas>
+
+<nav class="navbar">
+    <div class="nav-logo">&lt;Porte FOLIO&gt;</div>
+    <div class="nav-links">
+        <a href="#accueil">Accueil</a>
+        <a href="#veille-cyber">Veille Cyber</a>
+        <a href="#veille-techno">Veille Techno</a>
+        <a href="#stages">Parcours Pro</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#competences">Stack Technique</a>
+    </div>
+    </nav>
+
+<section id="accueil" class="hero-section">
+    <div class="glow-bg" style="top: 20%; left: 10%;"></div>
+    <div class="glow-bg" style="bottom: 20%; right: 10%; background: var(--secondary); animation-delay: 2s;"></div>
+
+    <div class="hero-content">
+        <div class="hero-text">
+            <span class="role">Étudiant BTS SIO - Option SISR</span>
+            <h1>Modibo <br>Sidibe<br></h1>
+            <p>
+                Passionné par la cybersécurité et l'administration système. 
+                Mon objectif est de passer en Licence Réseaux et Cybersécurité pour concevoir des architectures sécurisées.
+                Je vous souhaite la bienvenue sur mon portfolio où je documente mon parcours, mes veilles technologiques 
+                et mes projets en entreprise.
+            </p>
+            <p>
+                Actuellement à la recherche d'alternance et de nouveaux défis techniques autour du cablâge, de l'infrastructure réseau et de la cybersécurité.
+            </p>
+            <div class="hero-actions">
+                <a href="#competences" class="btn-neon">Explorer mes compétences</a>
+                <button class="btn-neon btn-secondary" onclick="openPDF('cv Alternance.pdf')">Mon CV</button>
+            </div>
+        </div>
+
+        <div class="bts-info">
+            <h2>
+                <span style="font-size:2rem;">🎓</span> 
+                Le BTS SIO
+            </h2>
+            <div style="margin-bottom: 15px;">
+                <span class="bts-badge">Services Informatiques aux Organisations</span>
+                <span class="bts-badge" style="background:var(--secondary); color:#000;">Niveau 5 (Bac+2)</span>
+            </div>
+            <p style="font-size: 0.95rem; color: #ccc; margin-bottom: 15px;">
+                Le BTS SIO forme aux métiers de l'informatique en deux ans. Il propose deux spécialités : 
+                <strong>SLAM</strong> (Solutions Logicielles) et <strong>SISR</strong> (Solutions d'Infrastructure).
+            </p>
+            <p style="font-size: 0.95rem; color: #ccc;">
+                J'ai choisi l'option <strong>SISR</strong> pour me spécialiser dans l'administration des réseaux, 
+                la gestion des serveurs, la virtualisation et la sécurité des systèmes d'information.
+            </p>
+        </div>
+    </div>
+</section>
+
+<div class="section-separator"></div>
+
+<section id="veille-cyber" class="main-section">
+    <div class="section-header">
+        <h2 data-text="CYBERSÉCURITÉ">Veille Cybersécurité</h2>
+        <div class="line"></div>
+    </div>
+
+    <div class="veilles-container">
+        <div class="veille-card">
+            <div class="veille-icon">🤖</div>
+            <div class="veille-content">
+                <h3>Veille Cybersécurité Sur les Chatbots</h3>
+                <p>
+                    Réalisation d’une veille technologique sur les chatbots et les enjeux de cybersécurité associés.
+                    Analyse des risques (fuite de données, prompt injection, attaques IA), étude des bonnes pratiques de sécurisation et compréhension de l’impact des IA conversationnelles en environnement professionnel.                </p>
+                <p><strong>Sujets clés :</strong> 🔹 Cyberattaques contre entreprises.</p>
+            </div>
+            <button class="btn-neon btn-secondary" onclick="openPDF('Veille-Cybersecurite-Les-Chatbots (1).pdf')">Consulter le dossier</button>
+        </div>
+</section>
+
+<section id="veille-techno" class="main-section" style="background: rgba(255,255,255,0.01);">
+    <div class="section-header">
+        <h2 data-text="TECHNOLOGIE">Veille Technologique</h2>
+        <div class="line"></div>
+    </div>
+
+    <div class="veilles-container">
+        <div class="veille-card" style="border-left-color: var(--secondary);">
+            <div class="veille-icon">🐳</div>
+            <div class="veille-content">
+                <h3>Veille Technologique sur les Chatbots et l'IA</h3>
+                <p>
+                Cette veille technologique analyse l’évolution des chatbots et de l’intelligence artificielle conversationnelle, leurs usages en entreprise, leurs limites et leurs impacts sur les métiers du numérique
+                </p>
+                <p>
+                    🔹 Chatbots en entreprise (support client, automatisation)
+
+🔹 Intégration IA dans les systèmes d’information
+                </p>
+            </div>
+            <button class="btn-neon" onclick="openPDF('veille_techno.pdf')">Voir la synthèse</button>
+        </div>
+</section>
+
+<section id="stages" class="main-section">
+    <div class="section-header">
+        <h2 data-text="EXPÉRIENCE">Mes Stages</h2>
+        <div class="line"></div>
+    </div>
+
+    <div class="timeline">
+
+        <!-- Nouvelle case Cahier des charges -->
+        <div class="container-stage right">
+            <div class="content-stage">
+                <span class="date-badge">2025 - 2026</span>
+                <h3>Cahier des charges – Stage Phone City</h3>
+                <h4 style="color:var(--secondary); margin-bottom:10px;">Technicien Informatique Support & Réseau</h4>
+                <p>
+                    Ce cahier des charges détaille les missions, objectifs et contraintes du stage réalisé chez Phone City en tant que Technicien Informatique Support & Réseau. Il sert de référence pour le déroulement du projet, la gestion des tâches et l’évaluation des livrables attendus durant la période de stage.
+                </p>
+                <button class="btn-neon btn-secondary" onclick="openPDF('cahier_des_charges_modibo.pdf')">Cahier des charges</button>
+            </div>
+        </div>
+
+        <div class="container-stage left">
+            <div class="content-stage">
+                <span class="date-badge">2025 - 2026</span>
+                <h3>Technicien Informatique Support & Réseau</h3>
+                <h4 style="color:var(--secondary); margin-bottom:10px;">Phone City</h4>
+                <p>
+                    Responsable de la maintenance préventive et corrective d’un parc de 14 postes.
+                </p>
+                <ul style="text-align:left; margin: 15px 0 15px 20px; color: var(--text-muted);">
+                    <li>Standardisation de postes clients (Windows 10/11).</li>
+                    <li>Architecture d'impression réseau (partage de serveur, configuration des imprimantes).</li>
+                    <li>Connexion des postes clients à l'infrastructure réseau.</li>
+                </ul>
+                <button class="btn-neon btn-secondary" onclick="openPDF('Note_de_synthèse.pdf')">Note de synthèse</button>
+            </div>
+        </div>
+
+        <!-- Nouvelle case Note de Synthèse pour NatSystem -->
+        <div class="container-stage right">
+            <div class="content-stage">
+                <span class="date-badge">2024 - 2025</span>
+                <h3>Note de Synthèse – Stage NatSystem</h3>
+                <h4 style="color:var(--secondary); margin-bottom:10px;">Technicien Informatique Support & Réseau</h4>
+                <p>
+                    Cette note de synthèse présente un résumé détaillé de mon stage chez NatSystem, où j'ai occupé le poste de Technicien Informatique Support & Réseau. Elle couvre les missions réalisées, les compétences acquises, les défis rencontrés et les apports professionnels durant cette période d'immersion en entreprise.
+                </p>
+                <button class="btn-neon btn-secondary" onclick="openPDF('Note_de_synthèse.pdf')">Note de Synthèse</button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section id="certifications" class="main-section">
+    <div class="section-header">
+        <h2 data-text="CERTIFICATIONS">Certifications & Projets</h2>
+        <div class="line"></div>
+    </div>
+
+    <div class="certs-container">
+        
+        <div class="cert-card">
+            <div style="font-size:3rem; margin-bottom:15px;">🎓</div>
+            <h3>OpenClassrooms</h3>
+            <p style="color:#aaa; margin-bottom:20px;">Maîtrisez la ligne de commande Linux</p>
+            <button class="btn-neon" onclick="openPDF('certif open.pdf')">Voir le certificat</button>
+        </div>
+
+        <div class="cert-card">
+            <div style="font-size:3rem; margin-bottom:15px;">⚖️</div>
+            <h3>RGPD & CNIL</h3>
+            <p style="color:#aaa; margin-bottom:20px;">Atelier de protection des données</p>
+            <button class="btn-neon" onclick="openPDF('Certif CNIL.pdf')">Voir le certificat</button>
+        </div>
+
+        <div class="cert-card">
+            <div style="font-size:3rem; margin-bottom:15px;">🏃</div>
+            <h3>Projet E4</h3>
+            <p style="color:#aaa; margin-bottom:20px;">Running High Tech - Documentation technique</p>
+            <button class="btn-neon" onclick="openPDF('running_high_tech.pdf')">Documentation</button>
+        </div>
+
+        <div class="cert-card">
+            <div style="font-size:3rem; margin-bottom:15px;">🏠</div>
+            <h3>Maison des ligues</h3>
+            <p style="color:#aaa; margin-bottom:20px;">Projet Maison des Ligues - Documentation technique</p>
+            <button class="btn-neon" onclick="openPDF('maison des_ligues.pdf')">Documentation</button>
+        </div>
+
+        <div class="cert-card">
+            <div style="font-size:3rem; margin-bottom:15px;">📋</div>
+            <h3>PROJET E5</h3>
+            <p style="color:#aaa; margin-bottom:20px;">Projet E5 - Documentation technique</p>
+            <button class="btn-neon" onclick="openPDF('TP IPAM MODIBO.pdf')">Documentation</button>
+        </div>
+
+        <div class="cert-card">
+            <div style="font-size:3rem; margin-bottom:15px;">🛡️</div>
+            <h3>Ensemble de projet cyber réalise durant le BTS</h3>
+            <p style="color:#aaa; margin-bottom:20px;">Ensemble des projets cybersécurité réalisés durant le BTS - Documentation technique</p>
+            <button class="btn-neon" onclick="openPDF('tout les projets.pdf')">Voir Projets</button>
+        </div>
+
+    </div>
+</section>
+
+<section id="competences" class="main-section">
+    <div class="section-header">
+        <h2 data-text="STACK">Compétences Techniques</h2>
+        <div class="line"></div>
+    </div>
+
+    <div class="skills-wrapper">
+        
+        <h3 class="category-title">🐧 Système & Réseau</h3>
+        <div class="tech-grid">
+            <div class="tech-item"><span class="tech-icon">🪟</span>Windows Server</div>
+            <div class="tech-item"><span class="tech-icon">🕸️</span>Cisco IOS</div>
+            <div class="tech-item"><span class="tech-icon">🐚</span>Bash / PowerShell</div>
+        </div>
+
+        <h3 class="category-title">🔐 Cybersécurité</h3>
+        <div class="tech-grid">
+            <div class="tech-item"><span class="tech-icon">🔥</span>TryHackMe</div>
+            <div class="tech-item"><span class="tech-icon">🔑</span>OpenVPN</div>
+        </div>
+
+        <h3 class="category-title">📄 Documents Importants</h3>
+        <div class="tech-grid">
+            <div class="tech-item" onclick="openPDF('CEPC_240694100007_B.pdf')" style="cursor: pointer;">
+                <span class="tech-icon">🚗</span>Permis de Conduire
+            </div>
+            <div class="tech-item" onclick="openPDF('Tableau_de_synthese Modibo Sidibe.pdf')" style="cursor: pointer;">
+                <span class="tech-icon">📊</span>Tableau synthèse Compétence
+            </div>
+        </div>
+
+
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 - Portfolio BTS SIO SISR. Développé avec passion.</p>
+</footer>
+
+<div id="pdf-modal" class="modal">
+    <div class="modal-content-wrapper">
+        <div class="close-btn" onclick="closePDF()">×</div>
+        <iframe id="pdf-frame"></iframe>
+    </div>
+</div>
+
+<script>
+    // --- GESTION PDF ---
+    function openPDF(file) {
+        document.getElementById("pdf-frame").src = file;
+        const modal = document.getElementById("pdf-modal");
+        modal.classList.add("open");
+        document.body.style.overflow = "hidden"; // Empêche le scroll background
+    }
+
+    function closePDF() {
+        const modal = document.getElementById("pdf-modal");
+        modal.classList.remove("open");
+        document.body.style.overflow = "auto";
+        setTimeout(() => {
+            document.getElementById("pdf-frame").src = "";
+        }, 400); // Nettoie la source après l'anim de fermeture
+    }
+
+    // Fermer le modal si on clique en dehors
+    document.getElementById("pdf-modal").addEventListener('click', function(e) {
+        if (e.target === this) {
+            closePDF();
+        }
+    });
+
+    // --- ANIMATIONS D'APPARITION AU SCROLL ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = 1;
+                entry.target.style.transform = "translateY(0)";
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll(".main-section, .hero-content").forEach(section => {
+        section.style.opacity = 0;
+        section.style.transform = "translateY(50px)";
+        section.style.transition = "all 0.8s ease-out";
+        observer.observe(section);
+    });
+
+    // --- BACKGROUND CANVAS ANIMATION (Particules Réseau) ---
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+
+    // Configuration des particules
+    const properties = {
+        bgColor: 'rgba(17, 17, 19, 1)',
+        particleColor: 'rgba(112, 0, 255, 0.5)', // Violet
+        particleRadius: 3,
+        particleCount: 60,
+        particleVelocity: 0.5,
+        lineLength: 150,
+        particleLife: 6,
+    };
+
+    function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    }
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.velocityX = Math.random() * (properties.particleVelocity * 2) - properties.particleVelocity;
+            this.velocityY = Math.random() * (properties.particleVelocity * 2) - properties.particleVelocity;
+            this.life = Math.random() * properties.particleLife * 60;
+        }
+
+        position() {
+            // Rebondir sur les bords ou traverser ? Traversons pour effet infini
+            this.x + this.velocityX > width && this.velocityX > 0 || this.x + this.velocityX < 0 && this.velocityX < 0 ? this.velocityX *= -1 : this.velocityX;
+            this.y + this.velocityY > height && this.velocityY > 0 || this.y + this.velocityY < 0 && this.velocityY < 0 ? this.velocityY *= -1 : this.velocityY;
+            this.x += this.velocityX;
+            this.y += this.velocityY;
+        }
+
+        reDraw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, properties.particleRadius, 0, Math.PI * 2);
+            ctx.closePath();
+            ctx.fillStyle = properties.particleColor;
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        particles = [];
+        for (let i = 0; i < properties.particleCount; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    function drawLines() {
+        let x1, y1, x2, y2, length, opacity;
+        for (let i in particles) {
+            for (let j in particles) {
+                x1 = particles[i].x;
+                y1 = particles[i].y;
+                x2 = particles[j].x;
+                y2 = particles[j].y;
+                length = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+                
+                if (length < properties.lineLength) {
+                    opacity = 1 - length / properties.lineLength;
+                    ctx.lineWidth = '0.5';
+                    ctx.strokeStyle = `rgba(0, 212, 255, ${opacity})`; // Bleu Cyan pour les lignes
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.stroke();
+                    ctx.closePath();
+                }
+            }
+        }
+    }
+
+    function loop() {
+        ctx.clearRect(0, 0, width, height);
+        // On ne redessine pas le background ici car géré par CSS pour le gradient
+        
+        for (let i in particles) {
+            particles[i].position();
+            particles[i].reDraw();
+        }
+        drawLines();
+        requestAnimationFrame(loop);
+    }
+
+    // Init
+    resize();
+    initParticles();
+    loop();
+
+    window.onresize = resize;
+
+</script>
+
+</body>
+</html>
